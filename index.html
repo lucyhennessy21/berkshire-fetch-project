@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berkshire Hathaway</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1>Berkshire Hathaway<br>HomeServices</h1>
+            </div>
+            <div class="sell-home">
+                <p>Ready to sell your home?</p>
+                <button class="button-outline" onclick="window.location.href='getstarted.html'">Get Started</button>
+
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">🏠 HOME</a>
+                <a href="#" id="openModal">👤 SIGN IN</a>
+                <a href="search.html">🔍 SEARCH</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="background-section">
+        <h2 class="main-heading">We Make it Simple</h2>
+    
+        <div class="search-box">
+            <div class="tabs">
+                <button class="tab">BUY A HOME</button>
+                <button class="tab active">SELL A HOME</button>
+                <button class="tab dark">SEARCH WITH HOMEFINDER AI</button>
+            </div>
+            <div class="search-input">
+                <input type="text" placeholder="City, Zip, Address or School District" class="search-box-input">
+                <div class="advanced">
+                    <span>⚙️ Advanced</span>
+                    <span class="search-icon">🔍</span>
+                </div>
+            </div>
+            <div class="filters">
+                <label><input type="checkbox"> ONLY SHOW OPEN HOUSES</label>
+                <label><input type="checkbox"> ONLY SHOW FIND IT FIRST LISTINGS</label>
+                <label><input type="checkbox"> ONLY SHOW EXCLUSIVE LISTINGS</label>
+            </div>
+        </div>
+    </section>
+
+    <section class="services-section">
+        <div class="services-content">
+            <h2>We make it <span>simple.</span></h2>
+            <p>
+                At Berkshire Hathaway, we understand that navigating the complexities of home buying and selling can be overwhelming. 
+                With over 390,000 employees and a presence in various industries, including real estate, we leverage our extensive 
+                resources to simplify this journey for you. Our dedicated team is committed to providing personalized guidance, 
+                ensuring that your experience is as straightforward and stress-free as possible. Your goals are our priority, and 
+                we're here to help you achieve them with confidence and ease.
+            </p>
+            <div class="icon-row">
+                <div class="icon-item">
+                    <img src="forsale.jpeg" alt="For Sale Icon">
+                    <p>Selling</p>
+                </div>
+                <div class="icon-item">
+                    <img src="money.jpeg" alt="Mortgage Icon">
+                    <p>Mortgage</p>
+                </div>
+                <div class="icon-item">
+                    <img src="doc.jpeg" alt="Title Icon">
+                    <p>Title</p>
+                </div>
+                <div class="icon-item">
+                    <img src="shield.jpeg" alt="Insurance Icon">
+                    <p>Insurance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="houses-section">
+        <div id="house-list" class="houses">
+            <!-- JavaScript will dynamically load house cards here -->
+        </div>
+    </section>
+    
+    <section class="info-section">
+        <h3>Follow Us On</h3>
+        <p>Stay connected with Berkshire Hathaway for updates, listings, and more!</p>
+        <div class="social-links">
+            <a href="https://www.facebook.com/BHHSRealEstate/" target="_blank" class="social-icon">🌐</a>
+            <a href="https://www.youtube.com/channel/UCrBKUuQDrkCNFjy4wF5ZWXw" target="_blank" class="social-icon">🎥</a>
+            <a href="https://www.instagram.com/bhhsrealestate/?hl=en" target="_blank" class="social-icon">📸</a>
+            <a href="https://www.linkedin.com/company/berkshire-hathaway" target="_blank" class="social-icon">🔗</a>
+        </div>
+    </section>    
+
+    <!-- Sign In Modal -->
+    <div class="modal" id="signInModal">
+        <div class="modal-content">
+            <span class="close-button" id="closeModal">&times;</span>
+            <h2>Sign In</h2>
+            <form onsubmit="handleLogin(event)">
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit">Sign In</button>
+            </form>
+            <p id="loginMessage"></p>
+        </div>
+    </div>
+
+    <script>
+        const houses = [
+            { price: "$245,000", address: "6745 Portage St NW, North Canton, OH 44720", image: "house 111.webp" },
+            { price: "$655,000", address: "7532 State Route 43, Kent, OH 44240", image: "house 222.webp" },
+            { price: "$640,533", address: "825 Eagle Run Dr, Dayton, OH 45458", image: "house 333.webp" }
+        ];
+
+        const houseList = document.getElementById("house-list");
+        houses.forEach(house => {
+            const houseDiv = document.createElement("div");
+            houseDiv.classList.add("house");
+            houseDiv.innerHTML = `<img src="${house.image}" alt="House image"><p>${house.price}<br>${house.address}</p>`;
+            houseList.appendChild(houseDiv);
+        });
+
+        const openModal = document.getElementById("openModal");
+        const closeModal = document.getElementById("closeModal");
+        const modal = document.getElementById("signInModal");
+
+        openModal.addEventListener("click", (e) => {
+            e.preventDefault();
+            modal.style.display = "flex";
+        });
+
+        closeModal.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
+        window.addEventListener("click", (e) => {
+            if (e.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const message = document.getElementById("loginMessage");
+            message.textContent = "✅ Logged in successfully!";
+            message.style.color = "green";
+            setTimeout(() => {
+                modal.style.display = "none";
+            }, 1500);
+        }
+    </script>
+</body>
+
+</html>

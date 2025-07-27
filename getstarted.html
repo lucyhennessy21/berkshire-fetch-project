@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Your Home Value | Berkshire Hathaway</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1>Berkshire Hathaway<br>HomeServices</h1>
+            </div>
+            <div class="sell-home">
+                <p>Ready to sell your home?</p>
+                <button class="button-outline" onclick="window.location.href='get-started.html'">Get Started</button>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">🏠 HOME</a>
+                <a href="#" id="signInBtn">👤 SIGN IN</a>
+                <a href="search.html">🔍 SEARCH</a>
+            </nav>
+        </div>
+    </header>
+    <section class="get-started-section">
+        <div class="get-started-content">
+            <h2>Discover Your Home's Value</h2>
+            <p>Enter your address to receive a quick estimate of your property's value.</p>
+            <form id="homeValueForm">
+                <input type="text" id="addressInput" placeholder="Enter your address" required>
+                <button type="submit">Get Estimate</button>
+            </form>
+            <div id="estimateResult"></div>
+        </div>
+    </section>
+    
+    <section class="results-info">
+        <h3>What’s Included in Your Results</h3>
+        <div class="results-items">
+            <div class="result-item">
+                <h4>1. Home Value Estimates</h4>
+                <p>Get an instant estimate based on market trends and property data.</p>
+            </div>
+            <div class="result-item">
+                <h4>2. Buyer Breakdown</h4>
+                <p>See who’s looking for homes like yours in your area.</p>
+            </div>
+            <div class="result-item">
+                <h4>3. Recent Nearby Sales</h4>
+                <p>Review comparable properties recently sold near your address.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="info-section">
+        <h3>Follow Us On</h3>
+        <p>Stay connected with Berkshire Hathaway for updates, listings, and more!</p>
+        <div class="social-links">
+            <a href="https://www.facebook.com/BHHSRealEstate/" target="_blank" class="social-icon">🌐</a>
+            <a href="https://www.youtube.com/channel/UCrBKUuQDrkCNFjy4wF5ZWXw" target="_blank" class="social-icon">🎥</a>
+            <a href="https://www.instagram.com/bhhsrealestate/?hl=en" target="_blank" class="social-icon">📸</a>
+            <a href="https://www.linkedin.com/company/berkshire-hathaway" target="_blank" class="social-icon">🔗</a>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('homeValueForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const address = document.getElementById('addressInput').value;
+            const estimate = "$" + (200000 + Math.floor(Math.random() * 300000)).toLocaleString();
+            document.getElementById('estimateResult').innerHTML = `<h3>Estimated Value for ${address}:</h3><p><strong>${estimate}</strong></p>`;
+        });
+    </script>
+</body>
+</html>

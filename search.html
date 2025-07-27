@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Houses</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1>Berkshire Hathaway<br>HomeServices</h1>
+            </div>
+            <div class="sell-home">
+                <p>Ready to sell your home?</p>
+                <button class="button-outline" onclick="window.location.href='getstarted.html'">Get Started</button>
+
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">🏠 HOME</a>
+                <a href="#" id="openModal">👤 SIGN IN</a>
+                <a href="search.html">🔍 SEARCH</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Search Section -->
+    <section id="search-section" class="background-section">
+        <div class="search-box">
+            <h2 class="main-heading">Find Your Dream Home</h2>
+            <div class="search-input">
+                <input type="text" id="search-bar" class="search-box-input"
+                    placeholder="Search by location, price, etc.">
+                <button id="search-button" class="button-outline">Search</button>
+            </div>
+            <div class="filters">
+                <label for="price-range">Price Range:</label>
+                <input type="range" id="price-range" min="100000" max="2000000" step="10000">
+                <span id="price-value">$100,000 - $2,000,000</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Houses Section -->
+    <section id="houses-section" class="houses-section">
+        <h2>Available Houses</h2>
+        <div id="house-list" class="houses">
+            <!-- Houses will load here -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <section class="info-section">
+        <h3>Follow Us On</h3>
+        <p>Stay connected with Berkshire Hathaway for updates, listings, and more!</p>
+        <div class="social-links">
+            <a href="https://www.facebook.com/BHHSRealEstate/" target="_blank" class="social-icon">🌐</a>
+            <a href="https://www.youtube.com/channel/UCrBKUuQDrkCNFjy4wF5ZWXw" target="_blank"
+                class="social-icon">🎥</a>
+            <a href="https://www.instagram.com/bhhsrealestate/?hl=en" target="_blank" class="social-icon">📸</a>
+            <a href="https://www.linkedin.com/company/berkshire-hathaway" target="_blank" class="social-icon">🔗</a>
+        </div>
+    </section>
+
+    <!-- Sign In Modal -->
+    <div class="modal" id="signInModal">
+        <div class="modal-content">
+            <span class="close-button" id="closeModal">&times;</span>
+            <h2>Sign In</h2>
+            <form onsubmit="handleLogin(event)">
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit">Sign In</button>
+            </form>
+            <p id="loginMessage"></p>
+        </div>
+    </div>
+
+
+    <!-- Script Section -->
+    <script>
+        const data = [{
+            "id": 1,
+            "title": "Charming Colonial in Akron",
+            "location": "Akron, OH",
+            "price": 250000,
+            "beds": 3,
+            "baths": 2,
+            "sqft": 1800,
+            "image": "house1.jpg"
+        },
+        {
+            "id": 2,
+            "title": "Modern Ranch in Kent",
+            "location": "Kent, OH",
+            "price": 310000,
+            "beds": 3,
+            "baths": 2,
+            "sqft": 2000,
+            "image": "house2.jpg"
+        },
+        {
+            "id": 3,
+            "title": "Spacious Family Home in Canton",
+            "location": "Canton, OH",
+            "price": 375000,
+            "beds": 4,
+            "baths": 3,
+            "sqft": 2800,
+            "image": "house3.jpg"
+        },
+        {
+            "id": 4,
+            "title": "Cozy Bungalow Near Downtown Akron",
+            "location": "Akron, OH",
+            "price": 190000,
+            "beds": 2,
+            "baths": 1,
+            "sqft": 1300,
+            "image": "house4.jpg"
+        },
+        {
+            "id": 5,
+            "title": "Luxury Estate in North Canton",
+            "location": "North Canton, OH",
+            "price": 850000,
+            "beds": 5,
+            "baths": 4,
+            "sqft": 4500,
+            "image": "house5.jpg"
+        },
+        {
+            "id": 6,
+            "title": "Updated Ranch in Stow",
+            "location": "Stow, OH",
+            "price": 290000,
+            "beds": 3,
+            "baths": 2,
+            "sqft": 1900,
+            "image": "house6.jpg"
+        },
+        {
+            "id": 7,
+            "title": "Historic Home in Massillon",
+            "location": "Massillon, OH",
+            "price": 320000,
+            "beds": 4,
+            "baths": 2,
+            "sqft": 2600,
+            "image": "house7.jpg"
+        },
+        {
+            "id": 8,
+            "title": "Contemporary Home in Green",
+            "location": "Green, OH",
+            "price": 410000,
+            "beds": 4,
+            "baths": 3,
+            "sqft": 3000,
+            "image": "house8.jpg"
+        },
+        {
+            "id": 9,
+            "title": "Quaint Cottage in Cuyahoga Falls",
+            "location": "Cuyahoga Falls, OH",
+            "price": 230000,
+            "beds": 3,
+            "baths": 2,
+            "sqft": 1500,
+            "image": "house9.jpg"
+        },
+        {
+            "id": 10,
+            "title": "New Build in Hartville",
+            "location": "Hartville, OH",
+            "price": 450000,
+            "beds": 4,
+            "baths": 3,
+            "sqft": 3100,
+            "image": "house10.jpg"
+        },
+        {
+            "id": 11,
+            "title": "Classic Two-Story in Tallmadge",
+            "location": "Tallmadge, OH",
+            "price": 340000,
+            "beds": 4,
+            "baths": 2,
+            "sqft": 2400,
+            "image": "house11.jpg"
+        },
+        {
+            "id": 12,
+            "title": "Renovated Farmhouse in Uniontown",
+            "location": "Uniontown, OH",
+            "price": 390000,
+            "beds": 4,
+            "baths": 3,
+            "sqft": 2800,
+            "image": "house12.jpg"
+        },
+        {
+            "id": 13,
+            "title": "Townhome in Jackson Township",
+            "location": "Jackson Township, OH",
+            "price": 310000,
+            "beds": 3,
+            "baths": 2,
+            "sqft": 2000,
+            "image": "house13.jpg"
+        },
+        {
+            "id": 14,
+            "title": "Lakefront Property in Portage Lakes",
+            "location": "Portage Lakes, OH",
+            "price": 670000,
+            "beds": 4,
+            "baths": 3,
+            "sqft": 3500,
+            "image": "house14.jpg"
+        },
+        {
+            "id": 15,
+            "title": "Affordable Starter Home in Akron",
+            "location": "Akron, OH",
+            "price": 160000,
+            "beds": 2,
+            "baths": 1,
+            "sqft": 1100,
+            "image": "house15.jpg"
+        },
+        {
+            "id": 16,
+            "title": "Custom Home in Louisville",
+            "location": "Louisville, OH",
+            "price": 480000,
+            "beds": 4,
+            "baths": 3,
+            "sqft": 3200,
+            "image": "house16.jpg"
+        },
+        {
+            "id": 17,
+            "title": "Downtown Kent Condo",
+            "location": "Kent, OH",
+            "price": 275000,
+            "beds": 2,
+            "baths": 2,
+            "sqft": 1400,
+            "image": "house17.jpg"
+        },
+        {
+            "id": 18,
+            "title": "Spacious Split-Level in Barberton",
+            "location": "Barberton, OH",
+            "price": 260000,
+            "beds": 3,
+            "baths": 2,
+            "sqft": 1800,
+            "image": "house18.jpg"
+        },
+        {
+            "id": 19,
+            "title": "Elegant Colonial in Fairlawn",
+            "location": "Fairlawn, OH",
+            "price": 520000,
+            "beds": 4,
+            "baths": 3,
+            "sqft": 3300,
+            "image": "house19.jpg"
+        },
+        {
+            "id": 20,
+            "title": "Family Home in Munroe Falls",
+            "location": "Munroe Falls, OH",
+            "price": 310000,
+            "beds": 3,
+            "baths": 2,
+            "sqft": 2100,
+            "image": "house20.jpg"
+        }];
+
+        const houseListContainer = document.getElementById('house-list');
+        const searchButton = document.getElementById('search-button');
+        const searchBar = document.getElementById('search-bar');
+        const priceRangeInput = document.getElementById('price-range');
+        const priceValue = document.getElementById('price-value');
+
+        function renderHouses(houses) {
+    houseListContainer.innerHTML = '';
+    if (houses.length === 0) {
+        houseListContainer.innerHTML = '<p>No results found</p>';
+        return;
+    }
+
+    houses.forEach(house => {
+        const houseDiv = document.createElement('div');
+        houseDiv.classList.add('house');
+
+        houseDiv.innerHTML = `
+            <img src="${house.image}" alt="${house.title}">
+            <h3>${house.title}</h3>
+            <p>${house.location}</p>
+            <p>Price: $${house.price.toLocaleString()}</p>
+            <p>${house.beds} Beds | ${house.baths} Baths | ${house.sqft} sqft</p>
+        `;
+
+        houseListContainer.appendChild(houseDiv);
+    });
+}
+
+
+        searchButton.addEventListener('click', () => {
+            const searchTerm = searchBar.value.toLowerCase().trim();
+            if (searchTerm === "") {
+                houseListContainer.innerHTML = '<p>Please enter a search term.</p>';
+                return;
+            }
+
+            const filteredHouses = data.filter(house =>
+                house.title.toLowerCase().includes(searchTerm) ||
+                house.location.toLowerCase().includes(searchTerm) ||
+                house.price.toString().includes(searchTerm)
+            );
+
+            renderHouses(filteredHouses);
+        });
+
+        priceRangeInput.addEventListener('input', () => {
+            const minPrice = parseInt(priceRangeInput.value);
+            const maxPrice = parseInt(priceRangeInput.max);
+
+            const filteredByPrice = data.filter(house => house.price >= minPrice && house.price <= maxPrice);
+
+            priceValue.textContent = `$${minPrice.toLocaleString()} - $${maxPrice.toLocaleString()}`;
+            renderHouses(filteredByPrice);
+        });
+
+        // Modal Logic
+        const modal = document.getElementById("signInModal");
+        const openModalBtn = document.getElementById("openModal");
+        const closeModalBtn = document.getElementById("closeModal");
+
+        openModalBtn.addEventListener('click', () => {
+            modal.style.display = "flex";
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            modal.style.display = "none";
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        });
+
+    </script>
+</body>
+
+</html>
